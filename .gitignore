@@ -2,3 +2,4 @@
 *.bbl
 __pycache__/
 *.pyc
+*.zip
