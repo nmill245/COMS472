@@ -1,0 +1,4 @@
+*.gz
+*.bbl
+__pycache__/
+*.pyc
