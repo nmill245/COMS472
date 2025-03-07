@@ -26,35 +26,37 @@ def priority_sort(cur, end):
 
 def a_star(grid, start, end):
     """An A* implementation"""
+    #generate placeholders
     rows, cols = len(grid), len(grid[0])
-
     directions =  [(-1, -1), (-1, 1), (1, -1), (1, 1),  # Diagonal moves
                     (-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
     visited = {}
     moves = {}
     reached = False
-    p1 = start
 
+    #generate start point as initial point
+    p1 = start
     visited[start] = (0, [start])
+
 
     while not reached:
         move = (0, 0)
-        min_cost = math.inf
+        min_overall_cost = math.inf
         fpath = []
-        for p1, (fcost, path) in visited.items():
-            minc = math.inf
+        for p1, (fcost, point_path) in visited.items():
+            min_move_cost = math.inf
             if p1 in moves:
-                fcost, path, mmove = moves[p1]
-                if fcost >= min_cost or mmove in visited:
+                fcost, move_path, mmove = moves[p1]
+                if fcost >= min_overall_cost or mmove in visited:
                     continue
                 fpath = []
-                for p in path:
+                for p in move_path:
                     fpath.append(p)
-                fpath.append(mmove)
                 move = mmove
-                min_cost = fcost
+                min_overall_cost = fcost
                 continue
-            if fcost >= min_cost:
+            #if the cost is over the min already, don't need to explore branch
+            if fcost >= min_overall_cost:
                 continue
             p1x, p1y = p1
             directions = priority_sort(p1, end)
@@ -62,23 +64,28 @@ def a_star(grid, start, end):
                 dx, dy = dirc
                 p2x = p1x + dx
                 p2y = p1y + dy
+                #check if move is valid and unmade
                 if p2x >= rows or p2y >= cols or p2x < 0 or p2y < 0 or grid[p2x][p2y] == 1 or (p2x, p2y) in visited.keys():
                     continue
                 cost = fcost + score((p2x, p2y), end)
-                if cost < min_cost:
-                    min_cost = cost
+                #updating global mins
+                if cost < min_overall_cost:
+                    min_overall_cost = cost
                     move = (p2x, p2y)
+                    #get total path to inital point and store it
                     fpath = []
-                    for p in path:
+                    for p in point_path:
                         fpath.append(p)
-                if cost < minc:
-                    minc = cost
+                #update point specific min
+                if cost < min_move_cost:
+                    min_move_cost = cost
                     mpath = []
-                    for p in path:
+                    for p in point_path:
                         mpath.append(p)
-                    moves[p1] = (minc, mpath, (p2x, p2y))
+                    moves[p1] = (min_move_cost, mpath, (p2x, p2y))
+        #take the move
         fpath.append(move)
-        visited[move] = (min_cost, fpath)
+        visited[move] = (min_overall_cost, fpath)
         if move == end:
             reached = True
             return fpath
