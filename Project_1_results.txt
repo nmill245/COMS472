@@ -1,0 +1,6 @@
+Average time in ns for a-star: 239836443.4
+Average time in ns for dfs: 273306279.7
+Average time in ns for dfs: 330706057.3
+Average time in ns for dfs: 281195986.7
+Average time in ns for a-star: 255558748.2
+Average time in ns for a-star: 265269975.0
