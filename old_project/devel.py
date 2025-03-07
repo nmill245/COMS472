@@ -1,3 +1,4 @@
+
 import numpy as np
 import scipy
 import time
@@ -5,7 +6,7 @@ import time
 from main import Task
 
 # example of testing a specific task
-for id in [24]: 
+for id in [5, 10, 25, 40, 50, 80]: 
     T = Task(id)                # initialize task
     T.plan_path()               # path planning
     T.visualize_path()          # path visualization
@@ -22,4 +23,5 @@ for _ in range(10):
     total_elapsed += etime-stime
     print(f"Elapsed time in ns: {etime-stime}")
 with open("../Project_1_results.txt", 'a') as f:
-    f.write(f"Average time in ns for a-star: {total_elapsed / 10}\n")
+    f.write(f"Average time in ns for dfs: {total_elapsed / 10}\n")
+
