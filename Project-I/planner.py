@@ -82,41 +82,7 @@ def a_star(grid, start, end):
         if move == end:
             reached = True
             return fpath
-    return []
-def dfs(grid, start, end):
-    """A DFS example"""
-    rows, cols = len(grid), len(grid[0])
-    stack = [start]
-    visited = set()
-    parent = {start: None}
-
-    # Consider all 8 possible moves (up, down, left, right, and diagonals)
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1),  # Up, Down, Left, Right
-                  (-1, -1), (-1, 1), (1, -1), (1, 1)]  # Diagonal moves
-
-    while stack:
-        x, y = stack.pop()
-        if (x, y) == end:
-            # Reconstruct the path
-            path = []
-            while (x, y) is not None:
-                path.append((x, y))
-                if parent[(x, y)] is None:
-                    break  # Stop at the start node
-                x, y = parent[(x, y)]
-            return path[::-1]  # Return reversed path
-
-        if (x, y) in visited:
-            continue
-        visited.add((x, y))
-
-        for dx, dy in directions:
-            nx, ny = x + dx, y + dy
-            if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == 0 and (nx, ny) not in visited:
-                stack.append((nx, ny))
-                parent[(nx, ny)] = (x, y)
-
-    return None  # Return None if no path is found
+    return None
 
 def plan_path(world: np.ndarray, start: Tuple[int, int], end: Tuple[int, int]) -> Optional[np.ndarray]:
     """
