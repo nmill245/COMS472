@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 *.zip
+*.aux
+*.csv
+indent.log
+
