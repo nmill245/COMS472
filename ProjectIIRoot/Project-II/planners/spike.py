@@ -60,7 +60,7 @@ class PlannerAgent:
         """
         
         directions = np.array([[0,0], [-1, 0], [1, 0], [0, -1], [0, 1],
-                                   [-1, -1], [-1, 1], [1, -1], [1, 1]]) 
+                                   [-1, -1], [-1, 1], [1, -1], [1, 1]])
           
         # Ensure start and end positions are tuples of integers
         start = (int(current[0]), int(current[1]))
