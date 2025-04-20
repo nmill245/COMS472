@@ -1,5 +1,74 @@
 import numpy as np
 from typing import List, Tuple, Optional
+"""
+def get_legal_actions(world, player):
+    directions = np.array([[0,0], [-1, 0], [1, 0], [0, -1], [0, 1],
+                           [-1, -1], [-1, 1], [1, -1], [1, 1]]) 
+    current = player[1]
+    rows = len(world)
+    cols = len(world[0])
+    legal = []
+    for dirc in directions:
+        nx = current[0] + dirc[0]
+        ny = current[1] + dirc[1]
+        if 0 <= nx < rows and 0 <= ny < cols and world[nx][ny] == 0:
+            legal.append(dirc)
+    return legal
+
+def apply_action(state, action, player):
+    state[player[0]] = (player[1][0] + action[0], player[1][1] + action[1]) 
+    return state
+
+def check_winner(state, player):
+    current = state[player[0]]
+    pursued = state[(player[0]-1)%3]
+    pursuer = state[(player[0]+1)%3]
+    cur_win = current == pursued
+    cur_lose = current == pursuer
+    pur_win = pursued == pursuer
+    if cur_win and not cur_lose and not pur_win:
+        return 3
+    if cur_lose and not cur_win and not pur_win:
+        return -3 
+    if pur_win and not cur_win and not cur_lose:
+        return -1
+    if cur_win or cur_lose or pur_win:
+        return 1
+
+
+def minimax(state, player, alpha=-float('inf'), beta=float('inf')):
+    winner = check_winner(state)
+    if winner:
+        return winner, None
+
+    if player == 'X':
+        max_eval = -float('inf')
+        best_move = None
+        for action in get_legal_actions(state):
+            new_state = apply_action(state, action, player)
+            eval, _ = minimax(new_state, 'O', alpha, beta)
+            if eval > max_eval:
+                max_eval = eval
+                best_move = action
+            alpha = max(alpha, eval)
+            if beta <= alpha:
+                break
+        return max_eval, best_move
+
+    else:  # player == 'O'
+        min_eval = float('inf')
+        best_move = None
+        for action in get_legal_actions(state):
+            new_state = apply_action(state, action, player)
+            eval, _ = minimax(new_state, 'X', alpha, beta)
+            if eval < min_eval:
+                min_eval = eval
+                best_move = action
+            beta = min(beta, eval)
+            if beta <= alpha:
+                break
+        return min_eval, best_move
+
 
 def dfs(grid, start, end):
     """A DFS example"""
@@ -35,6 +104,7 @@ def dfs(grid, start, end):
                 parent[(nx, ny)] = (x, y)
 
     return None
+"""
 
 class PlannerAgent:
     
@@ -72,7 +142,6 @@ class PlannerAgent:
         # Perform DFS pathfinding and return the result as a numpy array
         path = dfs(world_list, start, end)
 
-        return directions[0] 
 
         try:
             return np.array(path)[1]-current
