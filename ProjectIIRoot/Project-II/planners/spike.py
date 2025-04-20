@@ -72,6 +72,8 @@ class PlannerAgent:
         # Perform DFS pathfinding and return the result as a numpy array
         path = dfs(world_list, start, end)
 
+        return directions[0] 
+
         try:
             return np.array(path)[1]-current
         except:

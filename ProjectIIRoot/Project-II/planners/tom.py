@@ -22,12 +22,16 @@ def apply_action(state, action, player):
     state[player[0]] = (player[1][0] + action[0], player[1][1] + action[1]) 
     return state
 
-def check_winner(state):
-    current, pursued, pursuer = state
+def check_winner(state, player):
+    current = state[player[0]]
+    pursued = state[(player[0]-1)%3]
+    pursuer = state[(player[0]+1)%3]
     if current == pursued:
         return 3
     if current == pursuer:
         return -3
+    if pursued == pursuer:
+        return 1
     
 # --- Q-learning agent ---
 Q = defaultdict(float)
@@ -74,7 +78,7 @@ def play_game(state, rounds=200):
     while True:
         action = choose_action(world, state, player)
         next_state = apply_action(state, action, player)
-        winner = check_winner(next_state)
+        winner = check_winner(next_state, player)
 
         history.append((stringify(state), str(action), str(player), stringify(next_state)))
 
@@ -91,7 +95,7 @@ def play_game(state, rounds=200):
             break
 
         state = next_state
-        player_num = player[0]%3
+        player_num = (player[0]+1)%3
         player = (player_num, state[player_num])
         round_num += 1
 
@@ -127,6 +131,7 @@ class PlannerAgent:
         if self.first_run:
             train((world, current, pursued, pursuer))
         self.first_run = False
-
-        return choose_action(world, [current, pursued, pursuer], (0, current)) 
+        
+        action = choose_action(world, [current, pursued, pursuer], (0, current)) 
+        return action 
 
