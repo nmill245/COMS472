@@ -31,17 +31,14 @@
 %\usepackage{amssymb}  % assumes amsmath package installed
 
 \title{\LARGE \bf
-Project I Report for COM S 4/5720 Spring 2025: Subtitle*
+Project II Report for COM S 4/5720 Spring 2025: A Q-Learing Implemenation
 }
 
 
-\author{Albert Author$^{1}$ and Bernard D. Researcher$^{2}$% <-this % stops a space
-\thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
-        University of Twente, 7500 AE Enschede, The Netherlands
-        {\tt\small albert.author@papercept.net}}%
-\thanks{$^{2}$Bernard D. Researcheris with the Department of Electrical Engineering, Wright State University,
-        Dayton, OH 45435, USA
-        {\tt\small b.d.researcher@ieee.org}}%
+\author{Noah Miller$^{1}$% <-this % stops a space
+\thanks{$^{1}$Noah Miller with the Department of Computer Science, Wright State University,
+        Ames, IA 50013, USA
+        {\tt\small nvmiller@iastate.edu}}%
 }
 
 
@@ -56,86 +53,52 @@ Project I Report for COM S 4/5720 Spring 2025: Subtitle*
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-	This provided .tex template for COM S 4/5720 Spring 2025 at Iowa State University is adapted from the standard template for conference submissions at IEEE. Unless notified otherwise,
 
-	This electronic document is a ÒliveÓ template. The various components of your paper [title, text, heads, etc.] are already defined on the style sheet, as illustrated by the portions given in this document.
+	The problem of 3 chasing agents is difficult. These three agents, Tom, Jerry, and Spike, where Spike wants to attack Tom, Jerry wants to attack Spike, and Tom wants to attack Jerry.
+	This paper details an implementation of Q-Learning as the planning algorithm of choice for these agents, as well as developments made along the way.
 
 \end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{COM S 4/5720 INSTRUCTIONS}
-Unless noted otherwise (mostly in this section), please follow the rules set by the instructions in the following sections.
+%\section{COM S 4/5720 INSTRUCTIONS}
+%Unless noted otherwise (mostly in this section), please follow the rules set by the instructions in the following sections.
 
-The submitted project report should be a compiled typeset pdf file using this template. The pdf is at most 3 pages (including references).
+%The submitted project report should be a compiled typeset pdf file using this template. The pdf is at most 3 pages (including references).
 
-Please give clear, rigorous, and correct descriptions about your proposed algorithm. Please also make sure your description aligns with your code. Please include appropriate references, if applicable (e.g., A-star algorithm~\cite{hart1968formal}).
-
+%Please give clear, rigorous, and correct descriptions about your proposed algorithm. Please also make sure your description aligns with your code. Please include appropriate references, if applicable (e.g., A-star algorithm~\cite{hart1968formal}).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
 
-This template provides authors with most of the formatting specifications needed for preparing electronic versions of their papers. All standard paper components have been specified for three reasons: (1) ease of use when formatting individual papers, (2) automatic compliance to electronic requirements that facilitate the concurrent or later production of electronic products, and (3) conformity of style throughout a conference proceedings. Margins, column widths, line spacing, and type styles are built-in; examples of the type styles are provided throughout this document and are identified in italic type, within parentheses, following the example. Some components, such as multi-leveled equations, graphics, and tables are not prescribed, although the various table text styles are provided. The formatter will need to create these components, incorporating the applicable criteria that follow.
+It is common for a path seeking problem involving agents to be used when understanding machine learning. Once past the basic understanding of one agent attempting
+to find the shortest path to a goal, is to introduce a moving goal. One step past that is to include someone to avoid as well. Once all that is met, we are left with the three agent problem. This
+is a problem in which the three agents, Tom, Jerry, and Spike, attempt to capture each other whilst avoiding obstacles on the map. Each round the map is different, so it needs to allow variance.
+From these turn, the things to consider are what moves are possible, and that Spike wants to capture Tom, Tom wants to capture Jerry, and Jerry wants to capture Spike. These considerations
+change the problem from a simplest shortest path algorithm, to one needing more heuristics and understandings of the "best" path forward. The ultimate goal is to not be captured,
+but one can easily change the preference of actions based off scoring the winning states.
 
-\section{PROCEDURE FOR PAPER SUBMISSION}
+\section{Algorithmic Development}
 
-\subsection{Selecting a Template (Heading 2)}
+\subsection{MTCS}
 
+\subsubsection{Implementaiton}
 First, confirm that you have the correct template for your paper size. This template has been tailored for output on the US-letter paper size.
 It may be used for A4 paper size if the paper size setting is suitably modified.
 
-\subsection{Maintaining the Integrity of the Specifications}
+\subsubsection{Testing}
+
+\subsection{Q-Learning}
+
+\subsubsection{Implementation}
 
 The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
 
-\section{MATH}
+\subsubsection{Testing}
 
-Before you begin to format your paper, first write and save the content as a separate text file. Keep your text and graphic files separate until after the text has been formatted and styled. Do not use hard tabs, and limit use of hard returns to only one return at the end of a paragraph. Do not add any kind of pagination anywhere in the paper. Do not number text heads-the template will do that for you.
-
-Finally, complete content and organizational editing before formatting. Please take note of the following items when proofreading spelling and grammar:
-
-\subsection{Abbreviations and Acronyms} Define abbreviations and acronyms the first time they are used in the text, even after they have been defined in the abstract. Abbreviations such as IEEE, SI, MKS, CGS, sc, dc, and rms do not have to be defined. Do not use abbreviations in the title or heads unless they are unavoidable.
-
-\subsection{Units}
-
-\begin{itemize}
-
-	\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as Ò3.5-inch disk driveÓ.
-	\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
-	\item Do not mix complete spellings and abbreviations of units: ÒWb/m2Ó or Òwebers per square meterÓ, not Òwebers/m2Ó.  Spell out units when they appear in text: Ò. . . a few henriesÓ, not Ò. . . a few HÓ.
-	\item Use a zero before decimal points: Ò0.25Ó, not Ò.25Ó. Use Òcm3Ó, not ÒccÓ. (bullet list)
-
-\end{itemize}
+\section{Discussion}
 
 
-\subsection{Equations}
-
-The equations are an exception to the prescribed specifications of this template. You will need to determine whether or not your equation should be typed using either the Times New Roman or the Symbol font (please no other font). To create multileveled equations, it may be necessary to treat the equation as a graphic and insert it into the text after your paper is styled. Number equations consecutively. Equation numbers, within parentheses, are to position flush right, as in (1), using a right tab stop. To make your equations more compact, you may use the solidus ( / ), the exp function, or appropriate exponents. Italicize Roman symbols for quantities and variables, but not Greek symbols. Use a long dash rather than a hyphen for a minus sign. Punctuate equations with commas or periods when they are part of a sentence, as in
-
-$$
-	\alpha + \beta = \chi \eqno{(1)}
-$$
-
-Note that the equation is centered using a center tab stop. Be sure that the symbols in your equation have been defined before or immediately following the equation. Use Ò(1)Ó, not ÒEq. (1)Ó or Òequation (1)Ó, except at the beginning of a sentence: ÒEquation (1) is . . .Ó
-
-\subsection{Some Common Mistakes}
-\begin{itemize}
-
-
-	\item The word ÒdataÓ is plural, not singular.
-	\item The subscript for the permeability of vacuum ?0, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ÒoÓ.
-	\item In American English, commas, semi-/colons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-	\item A graph within a graph is an ÒinsetÓ, not an ÒinsertÓ. The word alternatively is preferred to the word ÒalternatelyÓ (unless you really mean something that alternates).
-	\item Do not use the word ÒessentiallyÓ to mean ÒapproximatelyÓ or ÒeffectivelyÓ.
-	\item In your paper title, if the words Òthat usesÓ can accurately replace the word ÒusingÓ, capitalize the ÒuÓ; if not, keep using lower-cased.
-	\item Be aware of the different meanings of the homophones ÒaffectÓ and ÒeffectÓ, ÒcomplementÓ and ÒcomplimentÓ, ÒdiscreetÓ and ÒdiscreteÓ, ÒprincipalÓ and ÒprincipleÓ.
-	\item Do not confuse ÒimplyÓ and ÒinferÓ.
-	\item The prefix ÒnonÓ is not a word; it should be joined to the word it modifies, usually without a hyphen.
-	\item There is no period after the ÒetÓ in the Latin abbreviation Òet al.Ó.
-	\item The abbreviation Òi.e.Ó means Òthat isÓ, and the abbreviation Òe.g.Ó means Òfor exampleÓ.
-
-\end{itemize}
-
-
-\section{USING THE TEMPLATE}
+\section{Conclusion}
 
 Use this sample document as your LaTeX source file to create your document. Save this file as {\bf root.tex}. You have to make sure to use the cls file that came with this distribution. If you use a different style file, you cannot expect to get required margins. Note also that when you are creating your out PDF file, the source file is only part of the equation. {\it Your \TeX\ $\rightarrow$ PDF filter determines the output file size. Even if you make all the specifications to output a letter file in the source - if your filter is set to produce A4, you will only get A4 output. }
 
@@ -211,8 +174,6 @@ The preferred spelling of the word ÒacknowledgmentÓ in America is without an �
 
 References are important to the reader; therefore, each citation must be complete and correct. If at all possible, references should be commonly available publications.
 
-\bibliographystyle{IEEEtran}
-\bibliography{bib}
 
 
 
