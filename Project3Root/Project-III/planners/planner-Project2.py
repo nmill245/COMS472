@@ -10,6 +10,18 @@ class PlannerAgent:
         self.alpha = 0.5     # learning rate
         self.gamma = 0.9     # discount factor
         self.epsilon = 0.1   # exploration rate
+        self.prob = [0.3, 0.3, 0.4]
+
+    def mod_action(self, a):
+        """Implementation of a random chance for the action to be changed"""
+        mod = np.random.choice(3, p=self.prob)
+        match (mod):
+            case 0:
+                return a
+            case 1:
+                return np.array([-a[1], a[0]])
+            case 2:
+                return np.array([a[1], -a[0]])
 	
     def get_legal_actions(self, world, player):
         """
