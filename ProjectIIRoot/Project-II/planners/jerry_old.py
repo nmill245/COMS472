@@ -5,13 +5,13 @@ import numpy as np
 from typing import List, Tuple, Optional
 
 def get_all_legal_actions(world, state, current_player_num):
-    all = []
+    all_actions = []
     for i in range(len(state)):
         if i == current_player_num:
             continue
         actions = get_legal_actions(world, (-1, state[i]))
-        all.extend(actions)
-    return all
+        all_actions.extend(actions)
+    return all_actions
 
 def get_legal_actions(world, player):
     directions = np.array([[0,0], [-1, 0], [1, 0], [0, -1], [0, 1],
@@ -89,13 +89,13 @@ class Node:
             if winner:
                 return winner
             actions = get_legal_actions(state, player)
-            if i < rounds:
+            if i > rounds:
                 return 0
             action = random.choice(actions)
             state = apply_action(state, action, player)
             player_num = (player[0]+1)%3
             player = (player_num, self.state[player_num])
-            i += i
+            i += 1
 
     def backpropagate(self, result, root_player):
         reward = result
