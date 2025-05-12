@@ -157,7 +157,7 @@ class PlannerAgent:
         return random.choice(best_actions)
 
     # --- Play one game up to 100 actions and update Q ---
-    def play_game(self, state, rounds=10):
+    def play_game(self, state, rounds=30):
         """
         A function to play a game up to rounds number of rounds or until
         someone wins
@@ -207,7 +207,7 @@ class PlannerAgent:
         """
         Run a training loop of multiple games to cement the Q table
         """
-        for _ in range(100):
+        for _ in range(50):
             self.play_game(state)
 
 
